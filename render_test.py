@@ -11,9 +11,14 @@ def spread_fire(grid):
                 for dr, dc in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
                     r = row + dr
                     c = col + dc
-                    if grid[r, c] == 0 and random.random() < 0.2:
-                        new_grid[r, c] = 2
+                    if random.random() < 0.2:
+                        if grid[r, c] == 0:
+                            new_grid[r, c] = 2
+                        elif grid[r, c] == 3:
+                            new_grid[r, c] = 4
     return new_grid
+
+
 pygame.init()
 grid = np.zeros((10, 10), dtype=int)
 grid[0, :] = 1
@@ -46,6 +51,8 @@ while running:
                 color = (220, 50, 50)
             elif grid[row, col] == 3:
                 color = (50, 180, 80)
+            elif grid[row, col] == 4:
+                color = (20, 20, 20)
             else:
                 color = (230, 230, 230)
             pygame.draw.rect(screen, color, (col * CELL, row * CELL, CELL - 1, CELL - 1))
